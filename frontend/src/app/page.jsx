@@ -22,7 +22,7 @@ export default function Home() {
   if (error) return <div>Error fetching users</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
+    <div className="min-h-screen ">
       <div className="container mx-auto p-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Left side content */}
