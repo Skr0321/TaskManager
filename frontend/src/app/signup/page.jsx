@@ -6,6 +6,8 @@ import { z } from "zod";
 import Form from "../Forms/Form";
 
 import { registerUsers } from "@/services/RegisterUser";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 const radioBtn = [
   { opt: "Regular User", sub: "Join an existing organization" },
   { opt: "Administrator", sub: "Create and manage your organization" },
@@ -48,6 +50,7 @@ const formSchema = z
 export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(false);
+  const router = useRouter();
 
   const fields = [
     {
@@ -95,6 +98,16 @@ export default function Signup() {
       await registerUsers(data);
       console.log("Form data:", data);
       setResetTrigger(true);
+      toast.success("You have Registered Sucessfully 🥳", {
+        action: { label: "Undo" },
+        description: (
+          <p className="mb-0 text-sm">
+            Kindly login with the registered Email and Password do not forget it
+            😉
+          </p>
+        ),
+      });
+      router.push("/login");
     } catch (error) {
       console.error("Submission error:", error);
     } finally {

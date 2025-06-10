@@ -54,7 +54,9 @@ function TaskDiscription() {
     if (!confirmDelete) return;
     deleteTask(id);
     toast.success("Task Deleted❌", {
-      description: "Youve successfully removed the task.",
+      description: (
+        <p className="mb-0 text-sm">Youve successfully removed the task. 🥳</p>
+      ),
       action: { label: "close" },
     });
     router.push("/tasks");

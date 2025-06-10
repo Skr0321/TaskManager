@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useGetTasksById } from "@/services/getTaskById";
 import { updateTask } from "@/services/updateTasl";
 import { toast } from "sonner";
+import { decodeJwtToken } from "@/lib/decodeJwt";
 
 const formSchema = z.object({
   taskTitle: z.string().min(3, { message: "Task is required to enter 😂" }),
@@ -43,6 +44,13 @@ function EditTask() {
     isLoading: isTaskLoading,
     error: taskError,
   } = useGetTasksById();
+
+  const { userEmail } = decodeJwtToken();
+
+  const currentUser = users?.find((item) => item.email === userEmail);
+  console.log(currentUser);
+  const role = currentUser?.role;
+  console.log(role);
 
   if (isUserLoading || isTaskLoading) {
     return <Loader />;
@@ -83,16 +91,20 @@ function EditTask() {
       })),
       placeholder: "Select priority...",
     },
-    {
-      fieldName: "assignTo",
-      fieldLabel: "Assign to",
-      type: "select",
-      options: users.map((item) => ({
-        value: item.userId,
-        label: item.email,
-      })),
-      placeholder: "Select user...",
-    },
+    ...(role === "admin"
+      ? [
+          {
+            fieldName: "assignTo",
+            fieldLabel: "Assign to",
+            type: "select",
+            options: users.map((item) => ({
+              value: item.userId,
+              label: item.email,
+            })),
+            placeholder: "Select user...",
+          },
+        ]
+      : []),
   ];
 
   // Set defaultValues based on the first task
@@ -127,8 +139,8 @@ function EditTask() {
       toast.success("Task as been updated 🔄️", { action: { label: "close" } });
       router.push("/tasks");
     } catch (error) {
-      toast.error("You cannot update the tasks assigned to the members 😐", {
-        description: "Update your task😉",
+      toast.error("You cannot update the tasks assigned to other members 😐", {
+        description: <p className="mb-0 text-sm">Update your task😉</p>,
         action: { label: "close" },
       });
       router.push("/tasks");
@@ -147,10 +159,11 @@ function EditTask() {
         resetTrigger={resetTrigger}
         setResetTrigger={setResetTrigger}
         schema={formSchema}
-        formTitle="Create New Task"
-        formSubTitle="Fill in the details below to create a task"
-        submitButtonText="Create Task"
+        formTitle="Edit Task "
+        formSubTitle="Fill in the details below to Edit a task"
+        submitButtonText="Edit Task"
         linkRoute="/"
+        cancelButtonText="Cancle"
         grid="grid grid-cols-1 gap-y-4 max-w-md mx-auto"
       />
     </div>

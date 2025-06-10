@@ -116,11 +116,11 @@ function Hero() {
       </div>
       <section className="text-center">
         <h2 className="mb-5">How It Works</h2>
-        <div className="grid md:grid-cols-3 grid-cols-1 items-center gap-4 ">
+        <div className="grid md:grid-cols-3 grid-cols-1 items-center gap-4 p-4">
           {working.map((item, id) => (
             <div
               key={id}
-              className="flex flex-col items-center justify-center bg-2 p-8 rounded-2xl mb-8"
+              className="flex flex-col items-center justify-center bg-2 p-8 rounded-2xl mb-8 border border-main"
             >
               <span
                 className="p-4 color-3 rounded-full"

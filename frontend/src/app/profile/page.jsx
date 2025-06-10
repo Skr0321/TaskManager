@@ -42,10 +42,10 @@ function Profile() {
   return (
     <div className="min-h-screen flex justify-center items-center ">
       {currentUser.map((item) => (
-        <div key={item.userId} className="relative">
+        <div key={item.userId} className="relative ">
           <Card className="flex flex-col gap-12 w-[400px] min-h-[400px] p-4 bg-2 rounded-3xl  mb-8 border border-main   ">
             {" "}
-            <CardHeader className="flex gap-12 items-center justify-center bg-4 rounded-md p-4">
+            <CardHeader className="flex gap-12 items-center justify-center bg-4 rounded-md p-4 mt-12">
               <User
                 strokeWidth={3}
                 size={70}

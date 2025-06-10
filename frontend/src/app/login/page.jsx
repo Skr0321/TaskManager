@@ -48,9 +48,9 @@ function Login() {
     try {
       await loginUser(data);
       setResetTrigger(true);
-      toast("Loged in Sucessfully ", {
+      toast("Loged in Sucessfully 🎉", {
         action: { label: "Undo" },
-        description: "Your now logded in 🥳",
+        description: <p className="mb-0 text-sm">Your now logded in 🥳</p>,
       });
       router.push("/");
     } catch (error) {
