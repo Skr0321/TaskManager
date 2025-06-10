@@ -62,6 +62,10 @@ function Header() {
     setIsOpen(!isOpen);
     router.push("/tasks");
   }
+  function handleProfile() {
+    setIsOpen(!isOpen);
+    router.push("/profile");
+  }
   if (loading) return <Loader />;
   // if (error) return <p>error found</p>;
 
@@ -77,7 +81,7 @@ function Header() {
         <div className="hidden md:flex gap-3">
           {isLogin ? (
             <>
-              <Button onClick={() => router.push("/profile")}>
+              <Button onClick={handleProfile}>
                 <UserRound className="text-yellow-600 mr-2" strokeWidth={4} />
                 Profile
               </Button>
@@ -122,7 +126,7 @@ function Header() {
         <div className="md:hidden mt-4 flex flex-col gap-3 absolute w-full bg-2 p-4 left-0 z-100">
           {isLogin ? (
             <>
-              <Button onClick={() => router.push("/profile")}>
+              <Button onClick={handleProfile}>
                 <UserRound className="text-yellow-600 mr-2" strokeWidth={4} />
                 Profile
               </Button>

@@ -35,9 +35,6 @@ function NewTask() {
   const { userEmail } = decodeJwtToken();
 
   const currentUser = users?.find((item) => item.email === userEmail);
-  console.log(currentUser);
-
-  console.log(users);
 
   if (isUserLoading) {
     return <Loader />;
@@ -114,7 +111,6 @@ function NewTask() {
         assignTo: data.assignTo,
       };
 
-      console.log(newTasks);
       await createTask(newTasks);
       setResetTrigger(true);
       toast.success("New Task Created 🥳", {

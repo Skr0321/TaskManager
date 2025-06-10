@@ -25,7 +25,6 @@ function OrgMember() {
   const { data, loading, error } = useUserInOrg();
 
   const totalMembers = data?.length || 0;
-  console.log(data);
 
   if (loading) {
     return (
