@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d452a1b8-e094-4d6c-af55-08299c059160" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +23,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/km929/taskmanager.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/Skr0321/TaskManager.git&quot;,
     &quot;accountId&quot;: &quot;921cf8f3-0132-43a8-944b-0b5c4eb157d5&quot;
   }
 }</component>
@@ -43,7 +40,8 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ASUS/IdeaProjects/taskmanagers&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -77,7 +75,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1749561913029</updated>
-      <workItem from="1749561914304" duration="2365000" />
+      <workItem from="1749561914304" duration="2731000" />
+      <workItem from="1749571724919" duration="38000" />
+      <workItem from="1749571776628" duration="58000" />
+      <workItem from="1749571854193" duration="289000" />
+      <workItem from="1749572169681" duration="82000" />
     </task>
     <servers />
   </component>

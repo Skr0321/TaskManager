@@ -37,10 +37,10 @@ function Footer() {
         <h4>Connect</h4>
         <div className="flex gap-2">
           {" "}
-          <Link href="https://github.com/Manish50518">
+          <Link href="https://github.com/Skr0321">
             <Github />
           </Link>
-          <Link href="https://www.linkedin.com/in/manish-km-6b1892287/">
+          <Link href="https://www.linkedin.com/in/shekar-naik-b02aa7284/">
             <Linkedin />
           </Link>
         </div>
