@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Allow all endpoints
-                .allowedOrigins("http://localhost:3000") // Allow only this origin
+                .allowedOrigins("http://localhost:3000","https://task-manager-fullstack-phi.vercel.app") // Allow only this origin
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow these methods
                 .allowedHeaders("Content-Type", "Authorization") // Allow all headers
                 .allowCredentials(true); // Allow credentials (optional)

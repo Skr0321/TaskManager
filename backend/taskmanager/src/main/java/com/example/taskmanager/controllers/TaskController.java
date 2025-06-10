@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth/task")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins =  {"http://localhost:3000", "https://task-manager-fullstack-phi.vercel.app"})
 public class TaskController {
 
     @Autowired
