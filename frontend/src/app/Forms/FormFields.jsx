@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import { useController } from "react-hook-form";
+import { Controller, useController } from "react-hook-form";
 import { FORM_TYPES } from "./Form.types";
 import { cn } from "@/lib/utils";
 import { CalendarIcon, CircleCheck } from "lucide-react";
-import { format } from "date-fns";
-
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -18,13 +15,29 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
+import { useState } from "react";
 
 const FormField = ({ field, formRegister, formControl, errors }) => {
   const { field: controlField } = useController({
     name: field.fieldName,
     control: formControl,
   });
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  // Function to format date using Intl.DateTimeFormat
+  const formatDate = (date) =>
+    date
+      ? new Intl.DateTimeFormat("en-US", {
+          month: "short",
+          day: "2-digit",
+          year: "numeric",
+        }).format(new Date(date))
+      : "";
 
   switch (field.type) {
     case FORM_TYPES.TEXT:
@@ -83,7 +96,7 @@ const FormField = ({ field, formRegister, formControl, errors }) => {
             className={cn(
               errors[field.fieldName]?.message
                 ? "error-border ring-0 focus-visible:ring-0"
-                : ""
+                : "border border-main"
             )}
           />
           {errors[field.fieldName]?.message && (
@@ -129,7 +142,6 @@ const FormField = ({ field, formRegister, formControl, errors }) => {
             id={field.fieldName}
             {...formRegister(field.fieldName)}
             type="email"
-            min=""
             disabled={field.isDisabled}
             placeholder={field.placeholder}
             className={cn(
@@ -180,7 +192,6 @@ const FormField = ({ field, formRegister, formControl, errors }) => {
               </div>
             ))}
           </RadioGroup>
-
           {errors[field.fieldName]?.message && (
             <p className="text-[10px] text-red-500">
               {errors[field.fieldName]?.message?.toString()}
@@ -198,7 +209,6 @@ const FormField = ({ field, formRegister, formControl, errors }) => {
             id={field.fieldName}
             {...formRegister(field.fieldName)}
             type="password"
-            min=""
             disabled={field.isDisabled}
             placeholder={field.placeholder}
             className={cn(
@@ -212,7 +222,6 @@ const FormField = ({ field, formRegister, formControl, errors }) => {
               {errors[field.fieldName]?.message?.toString()}
             </p>
           )}
-
           {field.showPassDetail && (
             <div>
               <h6>PASSWORD MUST HAVE:</h6>
@@ -258,7 +267,7 @@ const FormField = ({ field, formRegister, formControl, errors }) => {
       return (
         <div className="flex flex-col gap-[4px]">
           <Label htmlFor={field.fieldName}>{field.fieldLabel}</Label>
-          <Popover>
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -271,7 +280,7 @@ const FormField = ({ field, formRegister, formControl, errors }) => {
                 )}
               >
                 {controlField.value ? (
-                  format(controlField.value, "PPP")
+                  formatDate(controlField.value)
                 ) : (
                   <span>{field.placeholder || "MM/DD/YYYY"}</span>
                 )}
@@ -285,15 +294,51 @@ const FormField = ({ field, formRegister, formControl, errors }) => {
               <Calendar
                 mode="single"
                 selected={controlField.value}
-                onSelect={(date) => controlField.onChange(date)}
-                disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
-                }
+                onSelect={(date) => {
+                  controlField.onChange(date), setOpen(false);
+                }}
                 initialFocus
                 className="primary-text"
               />
             </PopoverContent>
           </Popover>
+          {errors[field.fieldName]?.message && (
+            <p className="text-[10px] text-red-500">
+              {errors[field.fieldName]?.message?.toString()}
+            </p>
+          )}
+        </div>
+      );
+
+    case FORM_TYPES.SELECT:
+      return (
+        <div className="flex flex-col gap-[4px]">
+          <Label htmlFor={field.fieldName}>{field.fieldLabel}</Label>
+          <Controller
+            name={field.fieldName}
+            control={formControl}
+            render={({ field: { onChange, value } }) => (
+              <Select onValueChange={onChange} value={value || ""}>
+                <SelectTrigger className="w-full border border-main">
+                  {value ? (
+                    <span>
+                      {field.options.find((opt) => opt.value == value)?.label ||
+                        field.placeholder}
+                    </span>
+                  ) : (
+                    <span>{field.placeholder}</span>
+                  )}
+                </SelectTrigger>
+                <SelectContent>
+                  {field.options.map((item, id) => (
+                    <SelectItem value={item.value} key={id}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
           {errors[field.fieldName]?.message && (
             <p className="text-[10px] text-red-500">
               {errors[field.fieldName]?.message?.toString()}

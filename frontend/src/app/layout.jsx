@@ -2,6 +2,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import ProtectedRoute from "./Auth/ProtectedRoute";
+import Footer from "@/components/Footer";
+import { TanstackPorvider } from "@/providers/tanstack-providers";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +27,14 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ProtectedRoute>
-          <Header />
-          {children}
-        </ProtectedRoute>
+        <TanstackPorvider>
+          <ProtectedRoute>
+            <Header />
+            {children}
+            <Footer />
+          </ProtectedRoute>
+          <Toaster position="top-center" />
+        </TanstackPorvider>
       </body>
     </html>
   );

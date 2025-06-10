@@ -8,7 +8,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation"; // Correct import for App Router
-import SignInWithGoogle from "../login/SigninWithGoogle";
+import Loader from "@/components/Loader";
+import { X } from "lucide-react";
 
 const Form = ({
   fields,
@@ -29,7 +30,6 @@ const Form = ({
   formTitle,
   formSubTitle,
   error,
-  isGoogle,
 }) => {
   const {
     register,
@@ -53,9 +53,20 @@ const Form = ({
   }, [resetTrigger, reset, setResetTrigger]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="flex flex-col justify-center items-center ">
-        <div className="bg-2 p-8 rounded-2xl">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-8 ">
+      {loading && (
+        <div>
+          <Loader />
+        </div>
+      )}
+      <div className="flex flex-col justify-center items-center  ">
+        <div className="bg-2 p-8 rounded-xl ">
+          {/* <span className="flex justify-end mb-2">
+            <Button onClick={() => router.back()}>
+              <X />
+            </Button>
+          </span> */}
+
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <div
             className={cn(
@@ -82,9 +93,15 @@ const Form = ({
             ))}
           </div>
 
-          {isGoogle && <SignInWithGoogle />}
           {!inViewMode && (
-            <div className="flex flex-col justify-center gap-4 mt-6 items-center">
+            <div className="flex  justify-center gap-4 mt-6 items-center">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="bg-primary text-white"
+              >
+                {loading ? "Submitting..." : submitButtonText}
+              </Button>
               {showCancelButton && cancelButtonText && (
                 <Button
                   type="button"
@@ -97,13 +114,7 @@ const Form = ({
                   {cancelButtonText}
                 </Button>
               )}
-              <Button
-                type="submit"
-                disabled={loading}
-                className="bg-primary text-white"
-              >
-                {loading ? "Submitting..." : submitButtonText}
-              </Button>
+
               {linkRoute && linkText && (
                 <Link
                   href={linkRoute}

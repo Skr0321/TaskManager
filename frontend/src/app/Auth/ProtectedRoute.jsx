@@ -2,8 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { auth } from "@/services/firebase";
 import AuthLayout from "./AuthLayout";
+
+// Utility function to check if JWT token is valid
+export function isTokenValid() {
+  if (typeof window === "undefined") return false;
+  const token = localStorage.getItem("token");
+  if (!token) return false;
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const expiry = payload.exp * 1000;
+    return Date.now() <= expiry;
+  } catch (error) {
+    return false;
+  }
+}
 
 export default function ProtectedRoute({ children }) {
   const [loading, setLoading] = useState(true);
@@ -11,28 +25,27 @@ export default function ProtectedRoute({ children }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Define public routes that don't require authentication
-  const publicRoutes = ["/login", "/signup", "/about", "/contact"];
+  const publicRoutes = ["/login", "/signup", "/about", "/contact", "/hero"];
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setIsAuthenticated(true);
-        // Redirect authenticated users away from public auth routes
+    const checkAuth = () => {
+      const isValid = isTokenValid();
+      setIsAuthenticated(isValid);
+
+      if (isValid) {
         if (publicRoutes.includes(pathname)) {
-          router.push("/");
+          router.push("/tasks");
         }
       } else {
-        setIsAuthenticated(false);
-        // Redirect unauthenticated users to login for non-public routes
+        // Redirect unauthenticated users to /hero for non-public routes
         if (!publicRoutes.includes(pathname)) {
-          router.push("/login");
+          router.push("/hero");
         }
       }
       setLoading(false);
-    });
+    };
 
-    return () => unsubscribe();
+    checkAuth();
   }, [pathname, router]);
 
   if (loading) {

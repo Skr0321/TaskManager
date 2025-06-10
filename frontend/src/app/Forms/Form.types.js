@@ -10,6 +10,5 @@ export const FORM_TYPES = {
   CHECKBOX: "checkbox",
   DATE: "date",
   NUMBER: "number",
-  MULTI_SELECT: "multi-select",
   DATE_PICKER: "date-picker",
 };

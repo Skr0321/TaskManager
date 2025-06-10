@@ -1,79 +1,39 @@
 "use client";
 
-import { auth, db } from "@/services/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import Loader from "@/components/Loader";
+import { Button } from "@/components/ui/button";
+import { decodeJwtToken } from "@/lib/decodeJwt";
+import { useUserInOrg } from "@/services/usersInOrg";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [userDetails, setUserDetails] = useState(null);
   const router = useRouter();
+  const { data, isLoading, error } = useUserInOrg();
+  const { userEmail } = decodeJwtToken();
 
-  async function fetchUserData() {
-    auth.onAuthStateChanged(async (user) => {
-      console.log(user);
-      // setUserDetails(user);
+  const currentUser = data?.find((item) => item.email === userEmail);
 
-      try {
-        const docRef = doc(db, "Users", user.uid);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          setUserDetails(docSnap.data());
-          console.log(docSnap.data());
-        } else {
-          console.log("User no found");
-        }
-      } catch (err) {
-        console.log("Error fetching user data:", err.message);
-      }
-    });
+  if (isLoading) {
+    return <Loader />;
   }
 
-  useEffect(function () {
-    fetchUserData();
-  }, []);
-
-  async function handleLogout() {
-    try {
-      await auth.signOut();
-      router.push("/login");
-      console.log("User loged out sucessfully ");
-    } catch (error) {
-      console.error("user not loging out:", error.message);
-    }
-  }
+  if (error) return <div>Error fetching users</div>;
 
   return (
-    <div className="profile">
-      {userDetails ? (
-        <div>
-          <div>
-            <img
-              src={userDetails.photo}
-              alt="Profile"
-              width="120"
-              height="120"
-              style={{
-                borderRadius: "50%",
-                objectFit: "cover",
-                border: "3px solid #ddd",
-                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              }}
-            />
-          </div>
-
-          <h3>Welcome {userDetails.firstName}🥳🥳</h3>
-          <div>
-            <p>Email : {userDetails.email}</p>
-            <p>First Name: {userDetails.firstName}</p>
-            <p>Last Name:{userDetails.lastName}</p>
-          </div>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className=" p-8 min-h-screen ">
+      <h1 className="text-4xl font-bold mb-4">
+        Hi there <span className="text-red-400">{currentUser?.email}</span>,
+        Welcome back!
+      </h1>
+      <h2 className="text-2xl mb-2">Org: {currentUser?.organizationName}</h2>
+      <p className="mb-6 text-lg">Click below to see your tasks 👇</p>
+      <Button
+        className="text-xl bg-green-700 px-6 py-3 rounded-md hover:bg-green-800 transition"
+        onClick={() => router.push("/tasks")}
+      >
+        Go to Tasks
+      </Button>
     </div>
   );
 }

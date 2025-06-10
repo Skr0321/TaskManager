@@ -5,9 +5,7 @@ import { z } from "zod";
 
 import Form from "../Forms/Form";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "@/services/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { registerUsers } from "@/services/RegisterUser";
 const radioBtn = [
   { opt: "Regular User", sub: "Join an existing organization" },
   { opt: "Administrator", sub: "Create and manage your organization" },
@@ -15,7 +13,7 @@ const radioBtn = [
 
 const formSchema = z
   .object({
-    emailAddress: z
+    email: z
       .string()
       .min(1, { message: "Email is required" })
       .email({ message: "Invalid email address" }),
@@ -34,26 +32,26 @@ const formSchema = z
         message: "Please select a valid account type",
       }),
     }),
-    organizationname: z.string().optional(),
+    organizationName: z.string().optional(),
   })
   .refine(
     (data) =>
       data.accountType !== "Administrator" ||
       (data.accountType === "Administrator" &&
-        data.organizationname?.length > 0),
+        data.organizationName?.length > 0),
     {
       message: "Organization name is required for Administrator",
-      path: ["organizationname"],
+      path: ["organizationName"],
     }
   );
 
-export default function page() {
+export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(false);
 
   const fields = [
     {
-      fieldName: "emailAddress",
+      fieldName: "email",
       fieldLabel: "Email Address",
       type: "email",
       placeholder: "Enter email..",
@@ -76,7 +74,7 @@ export default function page() {
       })),
     },
     {
-      fieldName: "organizationname",
+      fieldName: "organizationName",
       fieldLabel: "Organization Name",
       type: "text",
       placeholder: "Your Organization (Optional)",
@@ -85,28 +83,16 @@ export default function page() {
   ];
 
   const defaultValues = {
-    emailAddress: "",
+    email: "",
     password: "",
     accountType: "",
-    organizationname: "",
+    organizationName: "",
   };
 
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await createUserWithEmailAndPassword(
-        auth,
-        data.emailAddress,
-        data.password
-      );
-      const user = auth.currentUser;
-      console.log(user);
-      if (user) {
-        await setDoc(doc(db, "Users", user.uid), {
-          email: user.email,
-          accountType: data.accountType,
-        });
-      }
+      await registerUsers(data);
       console.log("Form data:", data);
       setResetTrigger(true);
     } catch (error) {
