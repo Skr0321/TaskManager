@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 
 import {
   Bell,
+  BellElectric,
   CalendarDays,
   CircleCheck,
   Layers2,
   ListChecks,
+  LogIn,
   Plus,
   Users,
 } from "lucide-react";
@@ -91,9 +93,11 @@ function Hero() {
                 onClick={handleLogin}
                 className="px-10 py-6 bg-amber-50 text-black hover:text-white "
               >
+                <LogIn />
                 Login
               </Button>
               <Button onClick={handleSignUp} className="px-10 py-6 ">
+                <BellElectric />
                 Sign Up
               </Button>
             </div>

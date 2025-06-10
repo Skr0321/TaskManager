@@ -4,7 +4,7 @@ export function decodeJwtToken() {
   const token = localStorage.getItem("token");
 
   if (!token) {
-    throw new Error("User not authenticated: No token found in localStorage");
+    return "np";
   }
 
   let userEmail = null;

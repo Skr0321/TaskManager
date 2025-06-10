@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <div className="color-3 flex flex-col md:flex-row md:items-start justify-between p-12 min-h-[300px] bg-2 gap-4">
+    <div className="color-3 flex flex-col md:flex-row md:items-start justify-between p-12 min-h-[321px] bg-2 gap-4">
       <section className="flex flex-col justify-start p-0  md:w-1/2 ">
         <h3 className="mb-0 flex gap-2">
           <ListCheck size={38} style={{ color: "#ff0051" }} strokeWidth={3} />

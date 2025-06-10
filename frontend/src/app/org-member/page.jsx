@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/card";
 import { Users, AlertCircle } from "lucide-react";
 import { useUserInOrg } from "@/services/usersInOrg";
-import { Badge } from "@/components/ui/badge";
 
 function OrgMember() {
   const { data, loading, error } = useUserInOrg();
@@ -84,9 +83,9 @@ function OrgMember() {
                       <TableCell className="font-medium text-center">
                         {item.email}
                       </TableCell>
-                      <TableCell className="text-center">
+                      <TableCell className="text-center ">
                         <p
-                          className={` inline-block px-2 py-1 rounded-full ${
+                          className={` inline-block px-2 py-1 mb-0 rounded-full ${
                             item.accountType === "Administrator"
                               ? "text-[#9c0b89] bg-[#e023d320]"
                               : "text-[#0b9c1c] bg-[#23e03920]"

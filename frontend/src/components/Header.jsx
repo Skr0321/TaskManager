@@ -11,19 +11,29 @@ import {
   X,
   Plus,
   Building,
+  LucideLogIn,
+  BellElectric,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
+import { useUserInOrg } from "@/services/usersInOrg";
+import { decodeJwtToken } from "@/lib/decodeJwt";
+import Loader from "./Loader";
 
 function Header() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const isLogin = isTokenValid();
+  const { data, loading } = useUserInOrg();
+  const { userEmail } = decodeJwtToken();
+
+  const currentUser = data?.find((item) => item.email === userEmail);
+  const userType = currentUser?.accountType;
 
   function handleLogout() {
     localStorage.removeItem("token");
-    toast.success("Logged Out Successfully");
     router.push("/hero");
+    toast.success("Logged Out Successfully");
     setIsOpen(!isOpen);
   }
 
@@ -52,6 +62,8 @@ function Header() {
     setIsOpen(!isOpen);
     router.push("/tasks");
   }
+  if (loading) return <Loader />;
+  // if (error) return <p>error found</p>;
 
   return (
     <header className="bg-2 p-4 w-full ">
@@ -70,10 +82,12 @@ function Header() {
                 Profile
               </Button>
 
-              <Button onClick={handleCreateTask}>
-                <Plus className="text-green-600 mr-2" strokeWidth={4} />
-                Add Task
-              </Button>
+              {userType !== "Regular User" && (
+                <Button onClick={handleCreateTask}>
+                  <Plus className="text-green-600 mr-2" strokeWidth={4} />
+                  Add Task
+                </Button>
+              )}
 
               <Button onClick={hadleOrg}>
                 <Building className="text-pink-600 mr-2" strokeWidth={4} />
@@ -91,25 +105,33 @@ function Header() {
             </>
           ) : (
             <>
-              <Button onClick={handleLogin}>Login</Button>
-              <Button onClick={handleSignUp}>Sign up</Button>
+              <Button onClick={handleLogin}>
+                <LucideLogIn />
+                Login
+              </Button>
+              <Button onClick={handleSignUp}>
+                <BellElectric />
+                Sign up
+              </Button>
             </>
           )}
         </div>
       </div>
 
       {isOpen && (
-        <div className="md:hidden mt-4 flex flex-col gap-3 absolute w-full bg-2 p-4 left-0">
+        <div className="md:hidden mt-4 flex flex-col gap-3 absolute w-full bg-2 p-4 left-0 z-100">
           {isLogin ? (
             <>
               <Button onClick={() => router.push("/profile")}>
                 <UserRound className="text-yellow-600 mr-2" strokeWidth={4} />
                 Profile
               </Button>
-              <Button onClick={handleCreateTask}>
-                <Plus className="text-green-600 mr-2" strokeWidth={4} />
-                Add Task
-              </Button>
+              {userType !== "Regular User" && (
+                <Button onClick={handleCreateTask}>
+                  <Plus className="text-green-600 mr-2" strokeWidth={4} />
+                  Add Task
+                </Button>
+              )}
 
               <Button onClick={hadleOrg}>
                 <Building className="text-pink-600 mr-2" strokeWidth={4} />
@@ -127,8 +149,14 @@ function Header() {
             </>
           ) : (
             <>
-              <Button onClick={handleLogin}>Login</Button>
-              <Button onClick={handleSignUp}>Sign up</Button>
+              <Button onClick={handleLogin}>
+                <LucideLogIn />
+                Login
+              </Button>
+              <Button onClick={handleSignUp}>
+                <BellElectric />
+                Sign up
+              </Button>
             </>
           )}
         </div>

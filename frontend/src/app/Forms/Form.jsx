@@ -94,36 +94,42 @@ const Form = ({
           </div>
 
           {!inViewMode && (
-            <div className="flex  justify-center gap-4 mt-6 items-center">
-              <Button
-                type="submit"
-                disabled={loading}
-                className="bg-primary text-white"
-              >
-                {loading ? "Submitting..." : submitButtonText}
-              </Button>
-              {showCancelButton && cancelButtonText && (
+            <>
+              <div className="flex flex-col justify-center gap-4 mt-6 items-center">
                 <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() =>
-                    cancelRoute ? router.push(cancelRoute) : router.back()
-                  }
-                  className="bg-2 border-main text-secondarry"
+                  type="submit"
+                  disabled={loading}
+                  className="bg-primary text-white"
                 >
-                  {cancelButtonText}
+                  {loading ? "Submitting..." : submitButtonText}
                 </Button>
-              )}
 
-              {linkRoute && linkText && (
-                <Link
-                  href={linkRoute}
-                  className="text-blue-500 hover:underline"
-                >
-                  {linkText}
-                </Link>
-              )}
-            </div>
+                {linkRoute && linkText && (
+                  <Link
+                    href={linkRoute}
+                    className="text-blue-500 hover:underline"
+                  >
+                    {linkText}
+                  </Link>
+                )}
+              </div>
+
+              <div className="flex justify-end">
+                {" "}
+                {showCancelButton && cancelButtonText && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() =>
+                      cancelRoute ? router.push(cancelRoute) : router.back()
+                    }
+                    className="bg-2 border-main text-secondarry"
+                  >
+                    {cancelButtonText}
+                  </Button>
+                )}
+              </div>
+            </>
           )}
         </div>
       </div>
