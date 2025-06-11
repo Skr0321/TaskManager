@@ -1,18 +1,18 @@
 package com.example.taskmanager.controllers;
 
-import com.example.taskmanager.Model.User;
+
 import com.example.taskmanager.dto.UserDTO;
 import com.example.taskmanager.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/auth/users")
-@CrossOrigin(origins =  {"http://localhost:3000", "https://task-manager-fullstack-phi.vercel.app"})
+@CrossOrigin(origins =  {"http://localhost:3000", "https://task-manager-fullstack-phi.vercel.app", "https://task-manager-9f1j.vercel.app"})
 public class UserController {
 
     @Autowired

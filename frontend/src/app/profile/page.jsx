@@ -1,13 +1,7 @@
 "use client";
 import Loader from "@/components/Loader";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { emailByToken } from "@/services/emailByToken";
 import { useUserInOrg } from "@/services/usersInOrg";
 import { User, X } from "lucide-react";
@@ -35,54 +29,64 @@ function Profile() {
   if (isUserLoading) {
     return <Loader />;
   }
-  if (userError) return <div>Error fetching users</div>;
+  if (userError)
+    return <div className="text-center text-red-500">Error fetching users</div>;
 
   const currentUser = users.filter((item) => item.email === userEmail);
 
   return (
-    <div className="min-h-screen flex justify-center items-center ">
+    <div className="min-h-screen flex justify-center items-center p-4 sm:p-6">
       {currentUser.map((item) => (
-        <div key={item.userId} className="relative ">
-          <Card className="flex flex-col gap-12 w-[400px] min-h-[400px] p-4 bg-2 rounded-3xl  mb-8 border border-main   ">
-            {" "}
-            <CardHeader className="flex gap-12 items-center justify-center bg-4 rounded-md p-4 mt-12">
+        <div
+          key={item.userId}
+          className="relative w-full max-w-[400px] mx-auto"
+        >
+          <Card className="flex flex-col gap-6 w-full p-4 sm:p-6 bg-2 rounded-3xl my-6 border border-main">
+            <CardHeader className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center bg-4 rounded-md p-4 sm:p-6 mt-6">
               <User
                 strokeWidth={3}
-                size={70}
-                className="bg-2 p-2 bg-4 rounded-full"
+                className="w-12 h-12 sm:w-16 sm:h-16 bg-2 p-2 rounded-full"
                 style={{ color: "#8aff31" }}
               />
-              <div>
-                <CardTitle className="text-3xl primary-text">
+              <div className="text-center sm:text-left">
+                <CardTitle className="text-2xl sm:text-3xl primary-text truncate">
                   My Profile
                 </CardTitle>
-                <p>{item.email}</p>
+                <p className="text-sm sm:text-base break-all">{item.email}</p>
               </div>
             </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-4 p-4 rounded-md border border-active">
+            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 bg-4 p-4 sm:p-6 rounded-md border border-active">
               <div>
-                <p className="mb-0 ">Role</p>
-                <h6 className="mt-0 p-0">{item.accountType}</h6>
+                <p className="mb-0 text-sm sm:text-base">Role</p>
+                <h6 className="mt-0 p-0 text-base sm:text-lg truncate">
+                  {item.accountType}
+                </h6>
               </div>
               <div>
-                <p className="mb-0 ">Organization</p>
-                <h6 className="mt-0 p-0">{item.organizationName}</h6>
+                <p className="mb-0 text-sm sm:text-base">Organization</p>
+                <h6 className="mt-0 p-0 text-base sm:text-lg truncate">
+                  {item.organizationName}
+                </h6>
               </div>
               <div>
-                <p className="mb-0 ">Organization Role</p>
-                <h6 className="mt-0 p-0">{item.role}</h6>
+                <p className="mb-0 text-sm sm:text-base">Organization Role</p>
+                <h6 className="mt-0 p-0 text-base sm:text-lg truncate">
+                  {item.role}
+                </h6>
               </div>
               <div>
-                <p className="mb-0 ">Joined</p>
-                <h6 className="mt-0 p-0">{item.joinedDate}</h6>
+                <p className="mb-0 text-sm sm:text-base">Joined</p>
+                <h6 className="mt-0 p-0 text-base sm:text-lg truncate">
+                  {item.joinedDate}
+                </h6>
               </div>
             </CardContent>
           </Card>
           <Button
-            className="absolute top-2 right-2"
+            className="absolute top-8 right-4"
             onClick={() => router.back()}
           >
-            <X />
+            <X className="w-4 h-4 sm:w-5 sm:h-5 " />
           </Button>
         </div>
       ))}

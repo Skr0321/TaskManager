@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d452a1b8-e094-4d6c-af55-08299c059160" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/service/impl/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/service/impl/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/service/impl/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/taskmanager/src/main/java/com/example/taskmanager/service/impl/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +86,8 @@
       <workItem from="1749571776628" duration="58000" />
       <workItem from="1749571854193" duration="289000" />
       <workItem from="1749572169681" duration="82000" />
+      <workItem from="1749572303169" duration="1426000" />
+      <workItem from="1749660253703" duration="2247000" />
     </task>
     <servers />
   </component>

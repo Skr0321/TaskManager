@@ -1,6 +1,6 @@
 package com.example.taskmanager.service.impl;
 
-import com.example.taskmanager.Model.User;
+
 import com.example.taskmanager.dto.UserDTO;
 
 import java.util.List;

@@ -61,12 +61,6 @@ const Form = ({
       )}
       <div className="flex flex-col justify-center items-center  ">
         <div className="bg-2 p-8 rounded-xl ">
-          {/* <span className="flex justify-end mb-2">
-            <Button onClick={() => router.back()}>
-              <X />
-            </Button>
-          </span> */}
-
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <div
             className={cn(
@@ -114,7 +108,7 @@ const Form = ({
                 )}
               </div>
 
-              <div className="flex justify-end">
+              <div className="flex justify-end mt-8">
                 {" "}
                 {showCancelButton && cancelButtonText && (
                   <Button

@@ -61,35 +61,22 @@ function Login() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <div className=" absolute z-0 ">
-        <Image
-          width={100}
-          height={100}
-          src={"/background.svg"}
-          alt="background pattern"
-          className="w-full h-full object-cover "
-        />
-      </div>
-      <div className=" p-8 relative  ">
-        <Form
-          fields={fields}
-          onSubmit={onSubmit}
-          defaultValues={defaultValues}
-          loading={loading}
-          resetTrigger={resetTrigger}
-          setResetTrigger={setResetTrigger}
-          schema={formSchema}
-          formTitle="Welcome Back"
-          formSubTitle="Sign in to your account to continue"
-          submitButtonText="Sign in"
-          error={error}
-          linkRoute="/signup"
-          linkText="Don't have an account? Sign up now"
-          grid="grid grid-cols-1 gap-y-4 max-w-md mx-auto"
-        />
-      </div>
-    </div>
+    <Form
+      fields={fields}
+      onSubmit={onSubmit}
+      defaultValues={defaultValues}
+      loading={loading}
+      resetTrigger={resetTrigger}
+      setResetTrigger={setResetTrigger}
+      schema={formSchema}
+      formTitle="Welcome Back"
+      formSubTitle="Sign in to your account to continue"
+      submitButtonText="Sign in"
+      error={error}
+      linkRoute="/signup"
+      linkText="Don't have an account? Sign up now"
+      grid="grid grid-cols-1 gap-y-4 max-w-md mx-auto"
+    />
   );
 }
 
